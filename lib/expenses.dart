@@ -1,3 +1,6 @@
+import 'dart:js_interop';
+
+import 'package:expenses/bottom_sheet.dart';
 import 'package:expenses/expenses_List/expenses_List.dart';
 import 'package:expenses/model/expense.dart';
 import 'package:flutter/material.dart';
@@ -12,21 +15,21 @@ class Expenses extends StatefulWidget {
 class _ExpensesState extends State<Expenses> {
   final List<Expense> _registeredExpenses = [
     Expense(
-      category: Category.education,
+      category: Category.work,
       title: "Mobile app devolopment",
-      amount: 15000,
+      amount: 10570,
       date: DateTime.now(),
     ),
     Expense(
       category: Category.education,
-      title: "Mobile app devolopment",
-      amount: 15000,
+      title: "Web application devolopment",
+      amount: 10000,
       date: DateTime.now(),
     ),
     Expense(
-      category: Category.education,
-      title: "Mobile app devolopment",
-      amount: 15000,
+      category: Category.travel,
+      title: "Travel",
+      amount: 8000,
       date: DateTime.now(),
     ),
   ];
@@ -35,14 +38,22 @@ class _ExpensesState extends State<Expenses> {
     return Scaffold(
       appBar: AppBar(
         title: const Center(child: Text("Working on the app...")),
+        actions: [
+          IconButton(
+              onPressed: () {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (x) =>   AddExpense()
+                      );
+              },
+              icon: const Icon(Icons.add))
+        ],
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text("Text..."),
-            Expanded(
-                child: ExpensesList(expenses: _registeredExpenses))
+            Expanded(child: ExpensesList(expenses: _registeredExpenses))
           ],
         ),
       ),

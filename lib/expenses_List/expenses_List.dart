@@ -1,3 +1,4 @@
+import 'package:expenses/expenses_List/expenses_item.dart';
 import 'package:expenses/model/expense.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class ExpensesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: expenses.length,
-      itemBuilder: (context, i) => Text("${expenses[i].title}"),
+      itemBuilder: (context, i) => ExpensesItem(expense: expenses[i]),
 
       /// when you are using LisView you have to use map and it's render part of the screen then if you scrolled down it render the next part and so on...
       /// so that's not the best choice sometime,
