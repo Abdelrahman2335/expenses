@@ -1,5 +1,3 @@
-import 'dart:js_interop';
-
 import 'package:expenses/bottom_sheet.dart';
 import 'package:expenses/expenses_List/expenses_List.dart';
 import 'package:expenses/model/expense.dart';
@@ -43,7 +41,7 @@ class _ExpensesState extends State<Expenses> {
               onPressed: () {
                 showModalBottomSheet(
                     context: context,
-                    builder: (x) =>   AddExpense()
+                    builder: (x) =>   const AddExpense()
                       );
               },
               icon: const Icon(Icons.add))
