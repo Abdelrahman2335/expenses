@@ -14,13 +14,13 @@ class _ExpensesState extends State<Expenses> {
   final List<Expense> _registeredExpenses = [
     Expense(
       category: Category.work,
-      title: "Mobile app devolopment",
+      title: "Mobile app development",
       amount: 10570,
       date: DateTime.now(),
     ),
     Expense(
       category: Category.education,
-      title: "Web application devolopment",
+      title: "Web application development",
       amount: 10000,
       date: DateTime.now(),
     ),

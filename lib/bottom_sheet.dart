@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -17,10 +16,10 @@ class _AddExpenseState extends State<AddExpense> {
   DateTime? _selectedDate; // we have to make the type DateTime? cuz pickedDate is the same type
 
   final formatter = DateFormat.yMd();
-  Category _selectedCategory = Category.travel;
+  Category _selectedCategory = Category.food;
 
   /// if you used controller so you have to use dispose, why?
-  /// cuz controller is still runing and working even if you closed the page or the widget,
+  /// cuz controller is still running and working even if you closed the page or the widget,
   /// so we have to stop him we have to destroy him, how?
   /// by using dispose
 
@@ -65,7 +64,7 @@ class _AddExpenseState extends State<AddExpense> {
                   decoration: const InputDecoration(
                     label: Text("Amount"),
                     prefixText:
-                        "\$", // The prefix is simply puting some strings or icon's after or before the text
+                        "\$", // The prefix is simply putting some strings or icon's after or before the text
                   ),
                 ),
               ),
@@ -75,20 +74,20 @@ class _AddExpenseState extends State<AddExpense> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(_selectedDate == null
-                        ? "Selcete Date"
+                        ? "Select Date"
                         : formatter.format(_selectedDate!)),
                     IconButton(
                       onPressed: () async {
                         final now = DateTime.now();
                         final startTime = DateTime(now.year -
                             20); // note this DateTime we have to use it cuz if not the type of the startTime will be int not dateTime.
-                        final pickeDate = await showDatePicker(
+                        final picekDate = await showDatePicker(
                             context: context,
                             firstDate: startTime,
                             lastDate:
-                                now); /*.then((value) => log(value.toString()));*/ // Look... now we are dealing with futher so we can say in the futher when the user give us date (then) do as follow...
+                                now); /*.then((value) => log(value.toString()));*/ // Look... now we are dealing with future so we can say in the future when the user give us date (then) do as follow...
                         setState(() {
-                          _selectedDate = pickeDate;
+                          _selectedDate = picekDate;
                         });
                         //please note that value is the date that the user choose.
                         //There is another way by using async and await
@@ -126,8 +125,22 @@ class _AddExpenseState extends State<AddExpense> {
               const Spacer(),
               ElevatedButton(
                 onPressed: () {
-                  log(_titleController.text);
-                  log(_amountController.text);
+                  final double? enteredAmount = double.tryParse(_amountController.text); /// here  we are using tryParse cus we are not sure if the user is entering int only
+                  /// and the type of enteredAmount is double? cuz this is the type of tryParse.
+                  final bool amountIsInvalid = enteredAmount == null || enteredAmount <= 0 ;
+
+                  // const snackBar = SnackBar(content: Text("Error"));
+                  showDialog(context: context, builder: (stx) => AlertDialog(
+                    title: Text("Invalid date"),
+                    content: Text("Test"),
+                    actions: [
+                      TextButton(onPressed: () => Navigator.pop(stx) /*note that we can't use context like this cuz this is for the main build but we can use stx as it's the context that we want */, child: Text("Okay"))
+                    ],
+                  ));
+                  if(_titleController.text.trim().isEmpty || amountIsInvalid ||_selectedDate == null){
+                    ///read more about trim()
+                    // ScaffoldMessenger.of(context).showSnackBar(snackBar); /// this is not the best way to show an error cuz this will not be shown on the top of the bottom_sheet
+                  }
                 },
                 child: const Text("Save Expense"),
               ),
