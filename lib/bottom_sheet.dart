@@ -110,7 +110,7 @@ class _AddExpenseState extends State<AddExpense> {
                 items: Category.values
                     .map((e) => DropdownMenuItem(
                       value: e,
-                      child: Text(e.name)
+                      child: Text(e.name.toUpperCase())
                       )
                       )
                     .toList(),
