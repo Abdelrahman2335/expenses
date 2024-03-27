@@ -1,10 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../model/expense.dart';
 
 class AddExpense extends StatefulWidget {
-  const AddExpense({super.key});
+  const AddExpense({super.key, required this.onAddExpense});
+
+  final void Function(Expense value) onAddExpense;
 
   @override
   State<AddExpense> createState() => _AddExpenseState();
@@ -13,7 +14,8 @@ class AddExpense extends StatefulWidget {
 class _AddExpenseState extends State<AddExpense> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
-  DateTime? _selectedDate; // we have to make the type DateTime? cuz pickedDate is the same type
+  DateTime?
+      _selectedDate; // we have to make the type DateTime? cuz pickedDate is the same type
 
   final formatter = DateFormat.yMd();
   Category _selectedCategory = Category.food;
@@ -105,16 +107,14 @@ class _AddExpenseState extends State<AddExpense> {
           Row(
             children: [
               DropdownButton(
-                value: _selectedCategory, // we have to use value here so we can show the user what s/he have selected on the screen.
+                value:
+                    _selectedCategory, // we have to use value here so we can show the user what s/he have selected on the screen.
                 items: Category.values
                     .map((e) => DropdownMenuItem(
-                      value: e,
-                      child: Text(e.name.toUpperCase())
-                      )
-                      )
+                        value: e, child: Text(e.name.toUpperCase())))
                     .toList(),
                 onChanged: (newVal) {
-                  if (newVal == null){
+                  if (newVal == null) {
                     return;
                   }
                   setState(() {
@@ -123,30 +123,6 @@ class _AddExpenseState extends State<AddExpense> {
                 },
               ), //name is the name of enum value. Don't forget we did all of this because DropdownButton is (required List of DropdownMenuItem)
               const Spacer(),
-              ElevatedButton(
-                onPressed: () {
-                  final double? enteredAmount = double.tryParse(_amountController.text); /// here  we are using tryParse cus we are not sure if the user is entering int only
-                  /// and the type of enteredAmount is double? cuz this is the type of tryParse.
-                  final bool amountIsInvalid = enteredAmount == null || enteredAmount <= 0 ;
-
-                  // const snackBar = SnackBar(content: Text("Error"));
-                  showDialog(context: context, builder: (stx) => AlertDialog(
-                    title: Text("Invalid date"),
-                    content: Text("Test"),
-                    actions: [
-                      TextButton(onPressed: () => Navigator.pop(stx) /*note that we can't use context like this cuz this is for the main build but we can use stx as it's the context that we want */, child: Text("Okay"))
-                    ],
-                  ));
-                  if(_titleController.text.trim().isEmpty || amountIsInvalid ||_selectedDate == null){
-                    ///read more about trim()
-                    // ScaffoldMessenger.of(context).showSnackBar(snackBar); /// this is not the best way to show an error cuz this will not be shown on the top of the bottom_sheet
-                  }
-                },
-                child: const Text("Save Expense"),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
               Row(
                 children: [
                   ElevatedButton(
@@ -154,6 +130,52 @@ class _AddExpenseState extends State<AddExpense> {
                     child: const Text("Cancel"),
                   ),
                 ],
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  final double? enteredAmount =
+                      double.tryParse(_amountController.text);
+
+                  /// here  we are using tryParse cus we are not sure if the user is entering int only
+                  /// and the type of enteredAmount is double? cuz this is the type of tryParse.
+                  final bool amountIsInvalid =
+                      enteredAmount == null || enteredAmount <= 0;
+
+                  // const snackBar = SnackBar(content: Text("Error"));
+
+                  if (_titleController.text.trim().isEmpty ||
+                      amountIsInvalid ||
+                      _selectedDate == null) {
+                    showDialog(
+                        context: context,
+                        builder: (stx) => AlertDialog(
+                              title: const Text("Invalid data"),
+                              content: const Text(
+                                  "Please enter the title, amount, date and category corectly!"),
+                              actions: [
+                                TextButton(
+                                    onPressed: () => Navigator.pop(
+                                        stx) /*note that we can't use context like this cuz this is for the main build but we can use stx as it's the context that we want */,
+                                    child: const Text("Okay"))
+                              ],
+                            ));
+
+                    ///read more about trim()
+                    // ScaffoldMessenger.of(context).showSnackBar(snackBar); /// this is not the best way to show an error cuz this will not be shown on the top of the bottom_sheet
+                  } else {
+                    widget.onAddExpense(Expense(
+                      category: _selectedCategory,
+                      title: _titleController.text,
+                      date: _selectedDate!,
+                      amount: enteredAmount,
+                    ));
+                    Navigator.pop(context);
+                  }
+                },
+                child: const Text("Save Expense"),
               ),
             ],
           ),

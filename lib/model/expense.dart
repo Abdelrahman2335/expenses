@@ -37,4 +37,3 @@ class Expense {
       required this.date
       }): id = uuid.v4();
 }
-

@@ -31,6 +31,15 @@ class _ExpensesState extends State<Expenses> {
       date: DateTime.now(),
     ),
   ];
+
+  void _addExpense (Expense value){
+
+    setState(() {
+      
+    _registeredExpenses.add(value);
+
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +50,7 @@ class _ExpensesState extends State<Expenses> {
               onPressed: () {
                 showModalBottomSheet(
                     context: context,
-                    builder: (x) =>   const AddExpense()
+                    builder: (x) =>    AddExpense(onAddExpense: _addExpense,)
                       );
               },
               icon: const Icon(Icons.add))
