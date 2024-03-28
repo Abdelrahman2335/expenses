@@ -15,7 +15,7 @@ class _ExpensesState extends State<Expenses> {
     Expense(
       category: Category.work,
       title: "Mobile app development",
-      amount: 10570,
+      amount: 1500,
       date: DateTime.now(),
     ),
     Expense(
@@ -32,14 +32,18 @@ class _ExpensesState extends State<Expenses> {
     ),
   ];
 
-  void _addExpense (Expense value){
-
+  void _addExpense(Expense value) {
     setState(() {
-      
-    _registeredExpenses.add(value);
-
+      _registeredExpenses.add(value);
     });
   }
+
+  void _removeExpense(Expense value) {
+    setState(() {
+      _registeredExpenses.remove(value);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,8 +54,8 @@ class _ExpensesState extends State<Expenses> {
               onPressed: () {
                 showModalBottomSheet(
                     context: context,
-                    builder: (x) =>    AddExpense(onAddExpense: _addExpense,)
-                      );
+                    builder: (x) => AddExpense(
+                          onAddExpense: _addExpense,));
               },
               icon: const Icon(Icons.add))
         ],
@@ -60,7 +64,7 @@ class _ExpensesState extends State<Expenses> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(child: ExpensesList(expenses: _registeredExpenses))
+            Expanded(child: ExpensesList(expenses: _registeredExpenses, onRemoveExpense: _removeExpense))
           ],
         ),
       ),

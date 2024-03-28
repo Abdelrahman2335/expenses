@@ -25,7 +25,7 @@ class Expense {
   final Category category;
 
   String get formatedDate {
-    /// this Function take the date from (date) and format it using the opject dateFormat to be year:month:day
+    /// this Function take the date from (date) and format it using the object dateFormat to be year:month:day
     return dateFormat.format(date); 
   }
 

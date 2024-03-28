@@ -18,7 +18,7 @@ class _AddExpenseState extends State<AddExpense> {
       _selectedDate; // we have to make the type DateTime? cuz pickedDate is the same type
 
   final formatter = DateFormat.yMd();
-  Category _selectedCategory = Category.food;
+  Category _selectedCategory = Category.food; // we have to give an initial value.
 
   /// if you used controller so you have to use dispose, why?
   /// cuz controller is still running and working even if you closed the page or the widget,
@@ -83,13 +83,13 @@ class _AddExpenseState extends State<AddExpense> {
                         final now = DateTime.now();
                         final startTime = DateTime(now.year -
                             20); // note this DateTime we have to use it cuz if not the type of the startTime will be int not dateTime.
-                        final picekDate = await showDatePicker(
+                        final pickDate = await showDatePicker(
                             context: context,
                             firstDate: startTime,
                             lastDate:
                                 now); /*.then((value) => log(value.toString()));*/ // Look... now we are dealing with future so we can say in the future when the user give us date (then) do as follow...
                         setState(() {
-                          _selectedDate = picekDate;
+                          _selectedDate = pickDate;
                         });
                         //please note that value is the date that the user choose.
                         //There is another way by using async and await
