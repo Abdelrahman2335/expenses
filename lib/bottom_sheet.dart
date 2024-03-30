@@ -18,7 +18,8 @@ class _AddExpenseState extends State<AddExpense> {
       _selectedDate; // we have to make the type DateTime? cuz pickedDate is the same type
 
   final formatter = DateFormat.yMd();
-  Category _selectedCategory = Category.food; // we have to give an initial value.
+  Category _selectedCategory =
+      Category.food; // we have to give an initial value.
 
   /// if you used controller so you have to use dispose, why?
   /// cuz controller is still running and working even if you closed the page or the widget,
@@ -60,8 +61,8 @@ class _AddExpenseState extends State<AddExpense> {
               Expanded(
                 child: TextField(
                   controller: _amountController,
-                  keyboardType: TextInputType
-                      .number, // this will show you the type of the keyboard that you want.
+                  keyboardType: TextInputType.number,
+                  // this will show you the type of the keyboard that you want.
                   // onChanged: (value) => _saveTitle, // this is one way how you can save the user input and you have other way using controller
                   decoration: const InputDecoration(
                     label: Text("Amount"),
@@ -79,6 +80,7 @@ class _AddExpenseState extends State<AddExpense> {
                         ? "Select Date"
                         : formatter.format(_selectedDate!)),
                     IconButton(
+
                       onPressed: () async {
                         final now = DateTime.now();
                         final startTime = DateTime(now.year -
@@ -94,7 +96,7 @@ class _AddExpenseState extends State<AddExpense> {
                         //please note that value is the date that the user choose.
                         //There is another way by using async and await
                       },
-                      icon: const Icon(Icons.calendar_month),
+                      icon: const Icon(Icons.calendar_month,),
                     ),
                   ],
                 ),
@@ -107,8 +109,8 @@ class _AddExpenseState extends State<AddExpense> {
           Row(
             children: [
               DropdownButton(
-                value:
-                    _selectedCategory, // we have to use value here so we can show the user what s/he have selected on the screen.
+                value: _selectedCategory,
+                // we have to use value here so we can show the user what s/he have selected on the screen.
                 items: Category.values
                     .map((e) => DropdownMenuItem(
                         value: e, child: Text(e.name.toUpperCase())))
@@ -121,19 +123,10 @@ class _AddExpenseState extends State<AddExpense> {
                     _selectedCategory = newVal;
                   });
                 },
-              ), //name is the name of enum value. Don't forget we did all of this because DropdownButton is (required List of DropdownMenuItem)
+              ),
+              //name is the name of enum value. Don't forget we did all of this because DropdownButton is (required List of DropdownMenuItem)
               const Spacer(),
-              Row(
-                children: [
-                  ElevatedButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text("Cancel"),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                width: 10,
-              ),
+
               ElevatedButton(
                 onPressed: () {
                   final double? enteredAmount =
@@ -152,9 +145,14 @@ class _AddExpenseState extends State<AddExpense> {
                     showDialog(
                         context: context,
                         builder: (stx) => AlertDialog(
-                              title: const Text("Invalid data"),
-                              content: const Text(
-                                  "Please enter the title, amount, date and category corectly!"),
+                              backgroundColor: Colors.white,
+                              title: Text("Invalid data",
+                                  style:
+                                      Theme.of(context).textTheme.titleLarge),
+                              content: Text(
+                                  "Please enter the title, amount, date and category correctly!",
+                                  style:
+                                      Theme.of(context).textTheme.titleLarge),
                               actions: [
                                 TextButton(
                                     onPressed: () => Navigator.pop(
@@ -176,6 +174,20 @@ class _AddExpenseState extends State<AddExpense> {
                   }
                 },
                 child: const Text("Save Expense"),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 15),
+                    child: TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text("Cancel"),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
