@@ -46,6 +46,8 @@ class _AddExpenseState extends State<AddExpense> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -80,7 +82,6 @@ class _AddExpenseState extends State<AddExpense> {
                         ? "Select Date"
                         : formatter.format(_selectedDate!)),
                     IconButton(
-
                       onPressed: () async {
                         final now = DateTime.now();
                         final startTime = DateTime(now.year -
@@ -96,7 +97,10 @@ class _AddExpenseState extends State<AddExpense> {
                         //please note that value is the date that the user choose.
                         //There is another way by using async and await
                       },
-                      icon: const Icon(Icons.calendar_month,),
+                      icon: Icon(Icons.calendar_month,
+                          color: isDarkMode
+                              ? Theme.of(context).colorScheme.primary
+                              : Theme.of(context).colorScheme.secondary),
                     ),
                   ],
                 ),
@@ -123,6 +127,12 @@ class _AddExpenseState extends State<AddExpense> {
                     _selectedCategory = newVal;
                   });
                 },
+                style: TextStyle(
+                  color: isDarkMode
+                      ? Theme.of(context).colorScheme.secondary
+                      : Theme.of(context).colorScheme.primary,
+                      
+                ),
               ),
               //name is the name of enum value. Don't forget we did all of this because DropdownButton is (required List of DropdownMenuItem)
               const Spacer(),
@@ -181,7 +191,7 @@ class _AddExpenseState extends State<AddExpense> {
               Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(right: 15),
+                    padding: const EdgeInsets.only(right: 34),
                     child: TextButton(
                       onPressed: () => Navigator.pop(context),
                       child: const Text("Cancel"),

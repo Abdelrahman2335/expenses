@@ -1,5 +1,6 @@
 import 'package:expenses/bottom_sheet.dart';
 import 'package:expenses/expenses_List/expenses_List.dart';
+import 'package:expenses/model/chart/chart.dart';
 import 'package:expenses/model/expense.dart';
 import 'package:flutter/material.dart';
 
@@ -48,7 +49,7 @@ class _ExpensesState extends State<Expenses> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text("Working on the app...")),
+        title: const Center(child: Text("Expenses Tracker")),
         actions: [
           IconButton(
               onPressed: () {
@@ -64,6 +65,7 @@ class _ExpensesState extends State<Expenses> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            chart(chartExpense: _registeredExpenses),
             Expanded(child: ExpensesList(expenses: _registeredExpenses, onRemoveExpense: _removeExpense))
           ],
         ),

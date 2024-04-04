@@ -15,14 +15,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.dark,
       theme: ThemeData().copyWith(
         colorScheme: myColorScheme,
-        appBarTheme: AppBarTheme().copyWith(
+        appBarTheme: const AppBarTheme().copyWith(
           backgroundColor: myColorScheme.onPrimaryContainer,
           foregroundColor: myColorScheme.primaryContainer,
         ),
-        cardTheme: CardTheme().copyWith(
+        cardTheme: const CardTheme().copyWith(
             color: myColorScheme.secondaryContainer,
             margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 8)),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: myColorScheme.primaryContainer
         ),
       ),
-        textTheme: TextTheme().copyWith(
+        textTheme: const TextTheme().copyWith(
           titleLarge: TextStyle(
             fontWeight: FontWeight.normal,
             color: myColorScheme.onSecondaryContainer,
@@ -39,11 +39,11 @@ class MyApp extends StatelessWidget {
         ),
       ),darkTheme: ThemeData.dark().copyWith(
         colorScheme: myDarkColorScheme,
-        appBarTheme: AppBarTheme().copyWith(
+        appBarTheme: const AppBarTheme().copyWith(
           backgroundColor: myDarkColorScheme.onPrimaryContainer,
           foregroundColor: myDarkColorScheme.primaryContainer,
         ),
-        cardTheme: CardTheme().copyWith(
+        cardTheme: const CardTheme().copyWith(
             color: myDarkColorScheme.secondaryContainer,
             margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 8)),
 
@@ -52,14 +52,14 @@ class MyApp extends StatelessWidget {
           backgroundColor: myDarkColorScheme.primaryContainer
         ),
       ),
-        textTheme: TextTheme().copyWith(
+        textTheme: const TextTheme().copyWith(
           titleLarge: TextStyle(
             fontWeight: FontWeight.normal,
             color: myDarkColorScheme.onSecondaryContainer,
             fontSize: 16,
           )
         ),
-      bottomSheetTheme: BottomSheetThemeData().copyWith(
+      bottomSheetTheme: const BottomSheetThemeData().copyWith(
         backgroundColor: myDarkColorScheme.secondaryContainer,
       ),
 
