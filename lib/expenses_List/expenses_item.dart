@@ -26,26 +26,31 @@ class ExpensesItem extends StatelessWidget {
           Row(
             children: [
               Text(
-                  "\$${expense.amount.toStringAsFixed(2)}" // this will show just 2 numbers after (.)
-                  ),
+                "\$${expense.amount.toStringAsFixed(2)}",
+                style: TextStyle(
+                    color: isDarkMode
+                        ? Theme.of(context).colorScheme.primary
+                        : Theme.of(context).colorScheme.secondary),
+              ), // this will show just 2 numbers after (.)
+
               const Spacer(),
               Row(
                 children: [
                   /// This line show the user the icons.
-                  Icon(
-                    categoryIcons[expense.category],
-                    color: isDarkMode
-                        ? Theme.of(context).colorScheme.primary
-                        : Theme.of(context)
-                            .colorScheme
-                            .secondary
-                  ),
+                  Icon(categoryIcons[expense.category],
+                      color: isDarkMode
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.secondary),
 
                   const SizedBox(
                     width: 5,
                   ),
                   Text(
                     expense.formatedDate,
+                    style: TextStyle(
+                        color: isDarkMode
+                            ? Theme.of(context).colorScheme.primary
+                            : Theme.of(context).colorScheme.secondary),
                   ),
                 ],
               )

@@ -66,21 +66,29 @@ class _AddExpenseState extends State<AddExpense> {
                   keyboardType: TextInputType.number,
                   // this will show you the type of the keyboard that you want.
                   // onChanged: (value) => _saveTitle, // this is one way how you can save the user input and you have other way using controller
-                  decoration: const InputDecoration(
+                  decoration:  InputDecoration(
                     label: Text("Amount"),
                     prefixText:
                         "\$", // The prefix is simply putting some strings or icon's after or before the text
+                        prefixStyle: TextStyle(color: isDarkMode
+                            ? Theme.of(context).colorScheme.secondary
+                          : Theme.of(context).colorScheme.primary),),
                   ),
                 ),
-              ),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(_selectedDate == null
-                        ? "Select Date"
-                        : formatter.format(_selectedDate!)),
+                    Text(
+                      _selectedDate == null
+                          ? "Select Date"
+                          : formatter.format(_selectedDate!),
+                      style: TextStyle(
+                          color: isDarkMode
+                              ? Theme.of(context).colorScheme.secondary
+                              : Theme.of(context).colorScheme.primary),
+                    ),
                     IconButton(
                       onPressed: () async {
                         final now = DateTime.now();
@@ -129,9 +137,8 @@ class _AddExpenseState extends State<AddExpense> {
                 },
                 style: TextStyle(
                   color: isDarkMode
-                      ? Theme.of(context).colorScheme.secondary
-                      : Theme.of(context).colorScheme.primary,
-                      
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).colorScheme.secondary,
                 ),
               ),
               //name is the name of enum value. Don't forget we did all of this because DropdownButton is (required List of DropdownMenuItem)
@@ -142,7 +149,7 @@ class _AddExpenseState extends State<AddExpense> {
                   final double? enteredAmount =
                       double.tryParse(_amountController.text);
 
-                  /// here  we are using tryParse cus we are not sure if the user is entering int only
+                  /// here  we are using tryParse cus we are not sure if the user is entering int only or not
                   /// and the type of enteredAmount is double? cuz this is the type of tryParse.
                   final bool amountIsInvalid =
                       enteredAmount == null || enteredAmount <= 0;
@@ -190,12 +197,9 @@ class _AddExpenseState extends State<AddExpense> {
               ),
               Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 34),
-                    child: TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text("Cancel"),
-                    ),
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text("Cancel"),
                   ),
                 ],
               ),
