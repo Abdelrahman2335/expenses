@@ -41,7 +41,7 @@ class expenseBucket {
   expenseBucket({required this.category, required this.expense});
   expenseBucket.forCategory(
       {required this.category, required List<Expense> allExpenses})
-      : expense = allExpenses.where((element) => element.category == category/**here false mean I dont need this element true mean I need this elemnet */).toList(); 
+      : expense = allExpenses.where((element) => element.category == category/**here false mean I don't need this element true mean I need this element */).toList();
 
   final Category category;
   final List<Expense> expense;
